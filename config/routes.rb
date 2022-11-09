@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     sessions: 'public/sessions'
   }
 
-  root to: 'public/home#top'
+  root to: 'public/homes#top'
 
   scope module: :public do
     get 'users/my_page' => 'users#show'
