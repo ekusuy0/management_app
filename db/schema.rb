@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(version: 2022_11_09_054317) do
     t.integer "tag_id", null: false
     t.string "name", null: false
     t.datetime "elapsed_time", null: false
+    t.datetime "start_time", null: false
+    t.datetime "end_time", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
