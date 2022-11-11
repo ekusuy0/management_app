@@ -13,6 +13,23 @@
   <input id="break" type="button" value="休憩"></input>
   <input id="stop" type="button" value="終了"></input>
 
+  <%= form_with model: @tag, url: tags_path, method: :post do |f| %>
+    <%= f.text_field :name %>
+    <%= f.submit "タグ作成" %>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <%= form_with model: @item, url: items_path, method: :post do |f| %>
+      <%= f.label "タイトル" %><br>
+      <%= f.text_field :name %><br>
+      <%= f.hidden_field :elapsed_time %>
+      <%= f.hidden_field :start_time %>
+      <%= f.hidden_field :end_time %>
+      <%= f.label :tag_id, "タグ選択" %><br>
+      <%= f.select :tag_id, options_from_collection_for_select(@tags, :id, :name), {include_blank: "選択"} %><br>
+      <%= f.submit "保存" %>
+    <% end %>
+  <% end %>
 </div>
 
 <%= javascript_pack_tag 'script' %>

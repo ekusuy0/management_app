@@ -28,12 +28,18 @@ function displayTime() {
   timeoutID = setTimeout(displayTime, 10);
 }
 
+let count = 0;
 // 開始ボタンが押されたときの処理
 startButton.addEventListener('click', () => {
   startButton.disabled = true;
   breakButton.disabled = false;
   stopButton.disabled = false;
 
+  // itemモデルのstart_timeに代入
+  if (count == 0) {
+    const start_time = new Date(Date.now());
+    document.getElementById("item_start_time").value = start_time;
+  }
   startTime = Date.now();
   displayTime();
 });
@@ -42,10 +48,12 @@ startButton.addEventListener('click', () => {
 breakButton.addEventListener('click', () => {
   startButton.disabled = false;
   breakButton.disabled = true;
-  stopButton.disabled = false;
+  stopButton.disabled = true;
 
+  document.getElementById("start").value = "再開";
   clearTimeout(timeoutID);
   stopTime += (Date.now() - startTime);
+  count += 1;
 });
 
 // 終了ボタンを押したときの処理
@@ -54,8 +62,14 @@ stopButton.addEventListener('click', () => {
   breakButton.disabled = true;
   stopButton.disabled = true;
 
+  const elapsed_time = new Date(Date.now() - startTime + stopTime);
+  elapsed_time.setHours(elapsed_time.getHours() - 9);
+  document.getElementById("item_elapsed_time").value = elapsed_time;
+  const end_time = new Date(Date.now());
+  document.getElementById("item_end_time").value = end_time;
   time.textContent = '00:00:00.000';
   clearTimeout(timeoutID);
-  stopTime += (Date.now() - startTime);
   stopTime = 0;
+  document.getElementById("start").value = "開始";
+  count = 0;
 })
