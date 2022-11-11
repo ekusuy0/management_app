@@ -1,0 +1,5 @@
+ja:
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"
+      dating: "%Y年%m月%d日"

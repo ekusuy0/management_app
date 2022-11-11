@@ -12,7 +12,7 @@ import "jquery";
 import "popper.js";
 import "bootstrap";
 import "../stylesheets/application"
-
+import "../stylesheets/item.css"
 
 Rails.start()
 Turbolinks.start()

@@ -7,6 +7,7 @@ class Public::ItemsController < ApplicationController
   end
 
   def index
+    @items = current_user.items.all.order(created_at: :desc)
   end
 
   def show

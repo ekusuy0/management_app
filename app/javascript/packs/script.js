@@ -72,4 +72,4 @@ stopButton.addEventListener('click', () => {
   stopTime = 0;
   document.getElementById("start").value = "開始";
   count = 0;
-})
+});
