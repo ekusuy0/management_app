@@ -64,6 +64,19 @@ stopButton.addEventListener('click', () => {
 
   const elapsed_time = new Date(Date.now() - startTime + stopTime);
   elapsed_time.setHours(elapsed_time.getHours() - 9);
+
+  const result = document.getElementById("result");
+
+  const h = String(elapsed_time.getHours()).padStart(2, '0');
+  const m = String(elapsed_time.getMinutes()).padStart(2, '0');
+  const s = String(elapsed_time.getSeconds()).padStart(2, '0');
+  const ms = String(elapsed_time.getMilliseconds()).padStart(3, '0');
+
+  h1 = document.createElement("h1");
+  h1.textContent =  h + ':' + m + ':' + s + '.' + ms;
+  result.appendChild(h1);
+
+
   document.getElementById("item_elapsed_time").value = elapsed_time;
   const end_time = new Date(Date.now());
   document.getElementById("item_end_time").value = end_time;

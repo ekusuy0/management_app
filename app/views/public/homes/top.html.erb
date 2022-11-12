@@ -18,6 +18,8 @@
     <%= f.submit "タグ作成" %>
   <% end %>
 
+  <div id="result"></div>
+
   <% if user_signed_in? %>
     <%= form_with model: @item, url: items_path, method: :post do |f| %>
       <%= f.label "タイトル" %><br>
@@ -32,4 +34,4 @@
   <% end %>
 </div>
 
-
+<%= javascript_pack_tag 'script' %>

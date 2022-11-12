@@ -5,9 +5,9 @@
       <p class="accordion-title js-accordion-title"><%= l item.created_at, format: :dating %>：<%= item.tag.name %></p>
       <div class="accordion-content">
         <p>内容：<%= item.name %></p>
-        <p>開始日時：<%= item.start_time %></p>
-        <p>終了日時：<%= item.end_time %></p>
-        <p>経過時間：<%= item.elapsed_time %></p>
+        <p>開始日時：<%= l item.start_time %></p>
+        <p>終了日時：<%= l item.end_time %></p>
+        <p>経過時間：<%= l item.elapsed_time, format: :timing %></p>
       </div>
     <% end %>
   </div>

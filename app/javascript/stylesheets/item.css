@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+.accordion-title {
+  cursor: pointer;
+}
+
 .accordion-content {
   display: none;
 }
