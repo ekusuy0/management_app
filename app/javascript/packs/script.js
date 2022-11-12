@@ -25,6 +25,9 @@ if (localStorage.getItem('started_at')) {
   window.addEventListener("load", function(){
     // localStorageからstarted_atを取得してstartTimeに代入後、時間を表示する関数を呼び出す処理
     startTime = localStorage.getItem('started_at');
+    if (localStorage.getItem('stopped_at')) {
+      stopTime = localStorage.getItem('stopped_at');
+    }
     displayTime();
   })
 }
@@ -57,6 +60,7 @@ if (localStorage.getItem('elapsed_time') && localStorage.getItem('end_time') && 
 //　時間を表示する関数
 function displayTime() {
 
+
   const currentTime = new Date(Date.now() - startTime + stopTime);
   // padStart()メソッドは、文字列が指定した長さになるように延長する。
   const h = String(currentTime.getHours() - 9).padStart(2, '0');
@@ -71,6 +75,7 @@ function displayTime() {
 }
 
 let count = 0;
+
 // 開始ボタンが押されたときの処理
 startButton.addEventListener('click', () => {
   startButton.disabled = true;
@@ -141,6 +146,7 @@ stopButton.addEventListener('click', () => {
   document.getElementById("item_end_time").value = end_time;
 
   localStorage.removeItem('started_at');
+  localStorage.removeItem('stopped_at');
 
   // 終了ボタンを押したときに初期値に戻す処理
   time.textContent = '00:00:00.000';
