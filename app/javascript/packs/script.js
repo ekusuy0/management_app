@@ -24,10 +24,31 @@ if (localStorage.getItem('started_at') && !localStorage.getItem('stopped_at')) {
   // ここでページを読み込んだときの処理をしている
   window.addEventListener("load", function(){
     // localStorageからstarted_atを取得してstartTimeに代入後、時間を表示する関数を呼び出す処理
-    startTime = localStorage.getItem('started_at');
+    startTime = Number(localStorage.getItem('started_at'));
     displayTime();
   })
 }
+
+// localStorageにstopped_atが保存されていてstarted_atが保存されてないときの処理（停止を押した後にページを離れるかリロードしたとき）
+if (localStorage.getItem('stopped_at') && localStorage.getItem('started_at')) {
+  // ここでページを読み込んだ時の処理をしている
+  window.addEventListener("load", function() {
+    // localStorageからstopped_atを取得してstopTimeに代入
+    stopTime = Number(localStorage.getItem('stopped_at'));
+
+
+    const currentTime = new Date(stopTime);
+
+    // padStart()メソッドは、文字列が指定した長さになるように延長する。
+    const H = String(currentTime.getHours() - 9).padStart(2, '0');
+    const M = String(currentTime.getMinutes()).padStart(2, '0');
+    const S = String(currentTime.getSeconds()).padStart(2, '0');
+    const MS = String(currentTime.getMilliseconds()).padStart(3, '0');
+
+    time.textContent = H + ':' + M + ':' + S + '.' + MS;
+  })
+}
+
 
 // localStorageにstopped_atが保存されていてstarted_atが保存されてないときの処理（停止を押した後にページを離れるかリロードしたとき）
 if (localStorage.getItem('stopped_at') && !localStorage.getItem('started_at')) {
@@ -60,8 +81,9 @@ if (localStorage.getItem('elapsed_time') && localStorage.getItem('end_time') && 
 //　時間を表示する関数
 function displayTime() {
 
-
   const currentTime = new Date(Date.now() - startTime + stopTime);
+
+
   // padStart()メソッドは、文字列が指定した長さになるように延長する。
   const h = String(currentTime.getHours() - 9).padStart(2, '0');
   const m = String(currentTime.getMinutes()).padStart(2, '0');
@@ -77,7 +99,7 @@ function displayTime() {
 let count = 0;
 
 // 開始ボタンが押されたときの処理
-startButton.addEventListener('click', () => {
+startButton.addEventListener('mousedown', () => {
   startButton.disabled = true;
   breakButton.disabled = false;
   stopButton.disabled = false;
@@ -100,7 +122,8 @@ startButton.addEventListener('click', () => {
 });
 
 // 休憩ボタンを押したときの処理
-breakButton.addEventListener('click', () => {
+breakButton.addEventListener('mousedown', () => {
+
   startButton.disabled = false;
   breakButton.disabled = true;
   stopButton.disabled = true;
@@ -111,13 +134,14 @@ breakButton.addEventListener('click', () => {
   // TimeoutIDを初期値に戻す
   clearTimeout(timeoutID);
   stopTime += (Date.now() - startTime);
+
   localStorage.setItem('stopped_at', stopTime);
   // localStorage.removeItem('started_at');
   count += 1;
 });
 
 // 終了ボタンを押したときの処理
-stopButton.addEventListener('click', () => {
+stopButton.addEventListener('mousedown', () => {
   startButton.disabled = false;
   breakButton.disabled = true;
   stopButton.disabled = true;
