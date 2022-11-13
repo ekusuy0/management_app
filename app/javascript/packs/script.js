@@ -20,35 +20,34 @@ let elapsed_time
 let end_time
 
 // localStorageにstarted_atが保存されていた時の処理（保存されてるのは開始を押したままページを離れるかリロードしたとき）
-if (localStorage.getItem('started_at')) {
+if (localStorage.getItem('started_at') && !localStorage.getItem('stopped_at')) {
   // ここでページを読み込んだときの処理をしている
   window.addEventListener("load", function(){
     // localStorageからstarted_atを取得してstartTimeに代入後、時間を表示する関数を呼び出す処理
     startTime = localStorage.getItem('started_at');
-    if (localStorage.getItem('stopped_at')) {
-      stopTime = localStorage.getItem('stopped_at');
-    }
     displayTime();
   })
 }
 
-// // localStorageにstopped_atが保存されていてstarted_atが保存されてないときの処理（停止を押した後にページを離れるかリロードしたとき）
-// if (localStorage.getItem('stopped_at') && !localStorage.getItem('started_at')) {
-//   // ここでページを読み込んだ時の処理をしている
-//   window.addEventListener("load", function() {
-//     // localStorageからstopped_atを取得してstopTimeに代入
-//     stopTime = localStorage.getItem('stopped_at');
+// localStorageにstopped_atが保存されていてstarted_atが保存されてないときの処理（停止を押した後にページを離れるかリロードしたとき）
+if (localStorage.getItem('stopped_at') && !localStorage.getItem('started_at')) {
+  // ここでページを読み込んだ時の処理をしている
+  window.addEventListener("load", function() {
+    // localStorageからstopped_atを取得してstopTimeに代入
+    stopTime = localStorage.getItem('stopped_at');
 
-//     const currentTime = new Date(Date.now() - startTime + stopTime);
-//     // padStart()メソッドは、文字列が指定した長さになるように延長する。
-//     const h = String(currentTime.getHours() - 9).padStart(2, '0');
-//     const m = String(currentTime.getMinutes()).padStart(2, '0');
-//     const s = String(currentTime.getSeconds()).padStart(2, '0');
-//     const ms = String(currentTime.getMilliseconds()).padStart(3, '0');
+    // const currentTime = new Date(Date.now() - startTime + stopTime);
+    // // padStart()メソッドは、文字列が指定した長さになるように延長する。
+    // const h = String(currentTime.getHours() - 9).padStart(2, '0');
+    // const m = String(currentTime.getMinutes()).padStart(2, '0');
+    // const s = String(currentTime.getSeconds()).padStart(2, '0');
+    // const ms = String(currentTime.getMilliseconds()).padStart(3, '0');
 
-//     time.textContent = h + ':' + m + ':' + s + '.' + ms;
-//   })
-// }
+    // time.textContent = h + ':' + m + ':' + s + '.' + ms;
+  })
+}
+
+console.log(localStorage.getItem('stopped_at'));
 
 if (localStorage.getItem('elapsed_time') && localStorage.getItem('end_time') && localStorage.getItem('start_time')) {
   window.addEventListener("load", function() {
@@ -57,6 +56,7 @@ if (localStorage.getItem('elapsed_time') && localStorage.getItem('end_time') && 
       document.getElementById("item_start_time").value = localStorage.getItem('start_time');
   })
 }
+
 //　時間を表示する関数
 function displayTime() {
 
@@ -112,7 +112,7 @@ breakButton.addEventListener('click', () => {
   clearTimeout(timeoutID);
   stopTime += (Date.now() - startTime);
   localStorage.setItem('stopped_at', stopTime);
-  localStorage.removeItem('started_at');
+  // localStorage.removeItem('started_at');
   count += 1;
 });
 
