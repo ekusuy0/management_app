@@ -6,6 +6,7 @@ const startButton = document.getElementById('start');
 const breakButton = document.getElementById('break');
 const stopButton = document.getElementById('stop');
 const saveButton = document.getElementById('save');
+const result = document.getElementById("result");
 
 
 
@@ -22,8 +23,12 @@ let end_time
 
 // localStorageにstarted_atが保存されていた時の処理（保存されてるのは開始を押したままページを離れるかリロードしたとき）
 if (localStorage.getItem('started_at') && !localStorage.getItem('stopped_at')) {
+
   // ここでページを読み込んだときの処理をしている
   window.addEventListener("load", function(){
+    startButton.disabled = true;
+    breakButton.disabled = false;
+    stopButton.disabled = false;
     // localStorageからstarted_atを取得してstartTimeに代入後、時間を表示する関数を呼び出す処理
     startTime = Number(localStorage.getItem('started_at'));
     displayTime();
@@ -53,9 +58,18 @@ console.log(localStorage.getItem('stopped_at'));
 
 if (localStorage.getItem('elapsed_time') && localStorage.getItem('end_time') && localStorage.getItem('start_time')) {
   window.addEventListener("load", function() {
-      document.getElementById("item_elapsed_time").value = localStorage.getItem('elapsed_time');
-      document.getElementById("item_end_time").value = localStorage.getItem('end_time');
-      document.getElementById("item_start_time").value = localStorage.getItem('start_time');
+    document.getElementById("item_elapsed_time").value = localStorage.getItem('elapsed_time');
+    document.getElementById("item_end_time").value = localStorage.getItem('end_time');
+    document.getElementById("item_start_time").value = localStorage.getItem('start_time');
+  })
+}
+
+// 結果がリロードしても消えないよう
+if (localStorage.getItem('result')) {
+  window.addEventListener("load", function() {
+    h1 = document.createElement("h1");
+    h1.textContent = localStorage.getItem('result');
+    result.appendChild(h1);
   })
 }
 
@@ -102,9 +116,10 @@ startButton.addEventListener('mousedown', () => {
   // 開始ボタンを押した最初の一回だけ処理してほしいので前に定義したcountを使う
   if (localStorage.getItem('count') == null) {
     const start_time = new Date(Date.now());
-    localStorage.removeItem('start_time');
-    localStorage.removeItem('end_time');
-    localStorage.removeItem('elapsed_time');
+    localStorage.clear();
+    if (h1 != undefined ){
+      result.removeChild(h1);
+    }
     localStorage.setItem('start_time', start_time);
     document.getElementById("item_start_time").value = start_time;
   }
@@ -148,14 +163,15 @@ stopButton.addEventListener('mousedown', () => {
 
 
   // 終了時に経過時間を表示するための処理
-  const result = document.getElementById("result");
 
   const h = String(elapsed_time.getHours()).padStart(2, '0');
   const m = String(elapsed_time.getMinutes()).padStart(2, '0');
   const s = String(elapsed_time.getSeconds()).padStart(2, '0');
 
-  h1 = document.createElement("h1");
-  h1.textContent =  h + '時間' + m + '分' + s + '秒';
+  const h1 = document.createElement("h1");
+  const text = h + '時間' + m + '分' + s + '秒';
+  localStorage.setItem('result', text);
+  h1.textContent = text;
   result.appendChild(h1);
 
   // form_withのf.hidden_fieldのvalueに経過時間と終了時間を追加する処理
@@ -189,7 +205,5 @@ stopButton.addEventListener('mousedown', () => {
 
 
 saveButton.addEventListener('mousedown', () => {
-  localStorage.removeItem('end_time');
-  localStorage.removeItem('start_time');
-  localStorage.removeItem('elapsed_time');
+  localStorage.clear();
 })
