@@ -34,6 +34,9 @@ if (localStorage.getItem('stopped_at') && localStorage.getItem('started_at')) {
   // ここでページを読み込んだ時の処理をしている
   window.addEventListener("load", function() {
 
+    stopTime = Number(localStorage.getItem('stopped_at'));
+
+
     // 休憩ボタンを押下したときの表示されている数字をlocalStorageから取得してそれぞれ代入する
     const H = localStorage.getItem('h');
     const M = localStorage.getItem('m');
@@ -65,20 +68,20 @@ function displayTime() {
   const m = String(currentTime.getMinutes()).padStart(2, '0');
   const s = String(currentTime.getSeconds()).padStart(2, '0');
   const ms = String(currentTime.getMilliseconds()).padStart(3, '0');
-  
-  
+
+
   // localStorageから削除する
   localStorage.removeItem('h');
   localStorage.removeItem('m');
   localStorage.removeItem('s');
   localStorage.removeItem('ms');
-  
+
   // localStorageに保存する
   localStorage.setItem('h', h);
   localStorage.setItem('m', m);
   localStorage.setItem('s', s);
   localStorage.setItem('ms', ms);
-  
+
   time.textContent = h + ':' + m + ':' + s + '.' + ms;
   // setTimeout関数は1つ目の引数に指定した時間経過後に実行するプログラムを持たせる。
   // 2つ目の引数にはプログラムの実行を開始するまでの時間を持たせる。時間はミリ秒単位。
@@ -86,6 +89,7 @@ function displayTime() {
 }
 
 let count = 0;
+
 
 // 開始ボタンが押されたときの処理
 startButton.addEventListener('mousedown', () => {
@@ -95,7 +99,7 @@ startButton.addEventListener('mousedown', () => {
 
   // itemモデルのstart_timeに代入
   // 開始ボタンを押した最初の一回だけ処理してほしいので前に定義したcountを使う
-  if (count == 0) {
+  if (localStorage.getItem('count') == null) {
     const start_time = new Date(Date.now());
     localStorage.removeItem('start_time');
     localStorage.removeItem('end_time');
@@ -107,6 +111,7 @@ startButton.addEventListener('mousedown', () => {
 
   // localStorageにstartTimeを保存する
   localStorage.setItem('started_at', startTime);
+  localStorage.removeItem('stopped_at');
   displayTime();
 });
 
@@ -127,6 +132,7 @@ breakButton.addEventListener('mousedown', () => {
   localStorage.setItem('stopped_at', stopTime);
   // localStorage.removeItem('started_at');
   count += 1;
+  localStorage.setItem('count', count);
 });
 
 // 終了ボタンを押したときの処理
@@ -171,10 +177,11 @@ stopButton.addEventListener('mousedown', () => {
   document.getElementById("start").value = "開始";
 
   count = 0;
-  
+
   // localStorageから削除する
   localStorage.removeItem('h');
   localStorage.removeItem('m');
   localStorage.removeItem('s');
   localStorage.removeItem('ms');
+  localStorage.removeItem('count');
 });
