@@ -10,8 +10,8 @@
   <div id="time">00:00:00.000</div>
 
   <input id="start" type="button" value="開始"></input>
-  <input id="break" type="button" value="休憩"></input>
-  <input id="stop" type="button" value="終了"></input>
+  <input id="break" type="button" value="休憩" disabled></input>
+  <input id="stop" type="button" value="終了" disabled></input>
 
   <%= form_with model: @tag, url: tags_path, method: :post do |f| %>
     <%= f.text_field :name %>
@@ -29,7 +29,7 @@
       <%= f.hidden_field :end_time %>
       <%= f.label :tag_id, "タグ選択" %><br>
       <%= f.select :tag_id, options_from_collection_for_select(@tags, :id, :name), {include_blank: "選択"} %><br>
-      <%= f.submit "保存" %>
+      <%= f.submit "保存", id: "save" %>
     <% end %>
   <% end %>
 </div>

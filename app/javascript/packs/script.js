@@ -5,6 +5,7 @@ const time = document.getElementById('time');
 const startButton = document.getElementById('start');
 const breakButton = document.getElementById('break');
 const stopButton = document.getElementById('stop');
+const saveButton = document.getElementById('save');
 
 
 
@@ -185,3 +186,10 @@ stopButton.addEventListener('mousedown', () => {
   localStorage.removeItem('ms');
   localStorage.removeItem('count');
 });
+
+
+saveButton.addEventListener('mousedown', () => {
+  localStorage.removeItem('end_time');
+  localStorage.removeItem('start_time');
+  localStorage.removeItem('elapsed_time');
+})
