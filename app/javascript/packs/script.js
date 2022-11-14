@@ -7,6 +7,7 @@ const breakButton = document.getElementById('break');
 const stopButton = document.getElementById('stop');
 const saveButton = document.getElementById('save');
 const result = document.getElementById("result");
+const h1 = document.createElement('h1');
 
 
 
@@ -20,6 +21,8 @@ let timeoutID;
 let elapsed_time
 //  終了時間
 let end_time
+
+let check;
 
 // localStorageにstarted_atが保存されていた時の処理（保存されてるのは開始を押したままページを離れるかリロードしたとき）
 if (localStorage.getItem('started_at') && !localStorage.getItem('stopped_at')) {
@@ -36,7 +39,7 @@ if (localStorage.getItem('started_at') && !localStorage.getItem('stopped_at')) {
 }
 
 // localStorageにstopped_atとstarted_atが保存されているときの処理（休憩を押した後にページを離れるかリロードしたとき）
-if (localStorage.getItem('stopped_at') && localStorage.getItem('started_at')) {
+if (localStorage.getItem('stopped_at') && localStorage.getItem('started_at') && !localStorage.getItem('check')) {
   // ここでページを読み込んだ時の処理をしている
   window.addEventListener("load", function() {
 
@@ -50,6 +53,18 @@ if (localStorage.getItem('stopped_at') && localStorage.getItem('started_at')) {
     const MS = localStorage.getItem('ms');
 
     time.textContent = H + ':' + M + ':' + S + '.' + MS;
+  })
+}
+
+if (localStorage.getItem('stopped_at') && localStorage.getItem('count') && localStorage.getItem('check')) {
+  window.addEventListener("load", function() {
+    startButton.disabled = true;
+    breakButton.disabled = false;
+    stopButton.disabled = false;
+
+    startTime = Number(localStorage.getItem('started_at'));
+    stopTime = Number(localStorage.getItem('stopped_at'));
+    displayTime();
   })
 }
 
@@ -67,7 +82,6 @@ if (localStorage.getItem('elapsed_time') && localStorage.getItem('end_time') && 
 // 結果がリロードしても消えないよう
 if (localStorage.getItem('result')) {
   window.addEventListener("load", function() {
-    h1 = document.createElement("h1");
     h1.textContent = localStorage.getItem('result');
     result.appendChild(h1);
   })
@@ -117,7 +131,7 @@ startButton.addEventListener('mousedown', () => {
   if (localStorage.getItem('count') == null) {
     const start_time = new Date(Date.now());
     localStorage.clear();
-    if (h1 != undefined ){
+    if (h1.childNodes.length != 0){
       result.removeChild(h1);
     }
     localStorage.setItem('start_time', start_time);
@@ -125,9 +139,12 @@ startButton.addEventListener('mousedown', () => {
   }
   startTime = Date.now();
 
+  check = "true";
+  localStorage.setItem('check', check);
+
   // localStorageにstartTimeを保存する
   localStorage.setItem('started_at', startTime);
-  localStorage.removeItem('stopped_at');
+  // localStorage.removeItem('stopped_at');
   displayTime();
 });
 
@@ -149,6 +166,7 @@ breakButton.addEventListener('mousedown', () => {
   // localStorage.removeItem('started_at');
   count += 1;
   localStorage.setItem('count', count);
+  localStorage.removeItem('check');
 });
 
 // 終了ボタンを押したときの処理
@@ -168,7 +186,6 @@ stopButton.addEventListener('mousedown', () => {
   const m = String(elapsed_time.getMinutes()).padStart(2, '0');
   const s = String(elapsed_time.getSeconds()).padStart(2, '0');
 
-  const h1 = document.createElement("h1");
   const text = h + '時間' + m + '分' + s + '秒';
   localStorage.setItem('result', text);
   h1.textContent = text;
