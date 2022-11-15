@@ -7,6 +7,10 @@ const stopButton = document.getElementById('stop');
 const saveButton = document.getElementById('save');
 const result = document.getElementById("result");
 const h1 = document.createElement('h1');
+const close = document.getElementById("close-button");
+const container = document.getElementById('modal-container');
+const save = document.getElementById('savebutton');
+var error = "";
 
 
 //　開始時間
@@ -237,11 +241,26 @@ stopButton.addEventListener('mousedown', () => {
   localStorage.removeItem('s');
   localStorage.removeItem('ms');
   localStorage.removeItem('count');
+
+  if (error != "") {
+    return false;
+  } else {
+    container.classList.add("active");
+    return false;
+  }
 });
 
+close.addEventListener('mousedown', () => {
+  container.classList.remove("active");
+});
+
+save.addEventListener('click', () => {
+  container.classList.add("active");
+})
 
 if (saveButton) {
   saveButton.addEventListener('mousedown', () => {
     localStorage.clear();
   });
 }
+

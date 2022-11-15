@@ -16,22 +16,30 @@
 
 
   <% if user_signed_in? %>
+    <div id="modal-container">
+      <div class="modal-body">
+        <div id="close-button">✖</div>
+        <div class="modal-content">
+          <%= form_with model: @tag, url: tags_path, method: :post do |f| %>
+            <%= f.text_field :name %>
+            <%= f.submit "タグ作成" %>
+          <% end %>
 
-    <%= form_with model: @tag, url: tags_path, method: :post do |f| %>
-      <%= f.text_field :name %>
-      <%= f.submit "タグ作成" %>
-    <% end %>
+          <%= form_with model: @item, url: items_path, method: :post do |f| %>
+            <%= f.label "タイトル" %><br>
+            <%= f.text_field :name %><br>
+            <%= f.hidden_field :elapsed_time %>
+            <%= f.hidden_field :start_time %>
+            <%= f.hidden_field :end_time %>
+            <%= f.label :tag_id, "タグ選択" %><br>
+            <%= f.select :tag_id, options_from_collection_for_select(@tags, :id, :name), {include_blank: "選択"} %><br>
+            <%= f.submit "保存", id: "save" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
 
-    <%= form_with model: @item, url: items_path, method: :post do |f| %>
-      <%= f.label "タイトル" %><br>
-      <%= f.text_field :name %><br>
-      <%= f.hidden_field :elapsed_time %>
-      <%= f.hidden_field :start_time %>
-      <%= f.hidden_field :end_time %>
-      <%= f.label :tag_id, "タグ選択" %><br>
-      <%= f.select :tag_id, options_from_collection_for_select(@tags, :id, :name), {include_blank: "選択"} %><br>
-      <%= f.submit "保存", id: "save" %>
-    <% end %>
+    <input id="savebutton" type="button" value="保存" ></input>
   <% end %>
 </div>
 
