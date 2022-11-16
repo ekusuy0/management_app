@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    get '/' => 'homes#top'
+    get '/' => 'tags#new'
     resources :tags, only: [:create, :edit, :update]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
