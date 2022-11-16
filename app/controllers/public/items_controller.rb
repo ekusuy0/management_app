@@ -14,7 +14,10 @@ class Public::ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def update
+  def destroy
+    item = Item.find(params[:id])
+    item.destroy
+    redirect_to items_path
   end
 
   private

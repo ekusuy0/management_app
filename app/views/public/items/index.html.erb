@@ -8,6 +8,7 @@
         <p>開始日時：<%= l item.start_time %></p>
         <p>終了日時：<%= l item.end_time %></p>
         <p>経過時間：<%= l item.elapsed_time, format: :timing %></p>
+        <%= link_to '削除', item_path(item.id), method: :delete %>
       </div>
     <% end %>
   </div>

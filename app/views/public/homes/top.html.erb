@@ -20,6 +20,7 @@
       <div class="modal-body">
         <div id="close-button">✖</div>
         <div class="modal-content">
+          
           <%= form_with model: @tag, url: tags_path, method: :post do |f| %>
             <%= f.text_field :name %>
             <%= f.submit "タグ作成" %>
