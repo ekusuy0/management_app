@@ -89,7 +89,10 @@ if (localStorage.getItem('result')) {
   window.addEventListener("load", function() {
     h1.textContent = localStorage.getItem('result');
     result.appendChild(h1);
+    save.style.display = 'inline';
   })
+} else {
+  save.style.display = 'none';
 }
 
 //　時間を表示する関数
@@ -140,6 +143,7 @@ startButton.addEventListener('mousedown', () => {
         var repty = confirm('保存せずに開始を押すと前回の結果が消えてしまいます。よろしいですか？');
         if (repty) {
           localStorage.clear();
+          save.style.display = 'none';
         } else {
           startButton.disabled = false;
           breakButton.disabled = true;
@@ -252,6 +256,9 @@ stopButton.addEventListener('mousedown', () => {
 
 close.addEventListener('mousedown', () => {
   container.classList.remove("active");
+  if (localStorage.getItem('result')) {
+    save.style.display = 'inline';
+  }
 });
 
 save.addEventListener('click', () => {
@@ -263,4 +270,3 @@ if (saveButton) {
     localStorage.clear();
   });
 }
-

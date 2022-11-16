@@ -19,13 +19,13 @@
     <div id="modal-container">
       <div class="modal-body">
         <div id="close-button">✖</div>
-        <div class="modal-content">
-          
+        <div class="modal-content text-center">
+
           <%= form_with model: @tag, url: tags_path, method: :post do |f| %>
             <%= f.text_field :name %>
             <%= f.submit "タグ作成" %>
           <% end %>
-
+          
           <%= form_with model: @item, url: items_path, method: :post do |f| %>
             <%= f.label "タイトル" %><br>
             <%= f.text_field :name %><br>
@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <input id="savebutton" type="button" value="保存" ></input>
+    <input id="savebutton" type="button" value="保存" style="display: none"></input>
   <% end %>
 </div>
 
