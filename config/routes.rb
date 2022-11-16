@@ -18,7 +18,11 @@ Rails.application.routes.draw do
     patch 'users/information' => 'users#update'
 
     resources :items, only: [:create, :index, :show, :destroy]
-    resources :tags, only: [:create, :index, :edit, :update]
+  end
+
+  namespace :admin do
+    get '/' => 'homes#top'
+    resources :tags, only: [:create, :edit, :update]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
