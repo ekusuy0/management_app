@@ -6,6 +6,9 @@ class Admin::TagsController < ApplicationController
   end
 
   def create
+    tag = Tag.new(tag_params)
+    tag.save
+    redirect_to request.referer
   end
 
   def edit
