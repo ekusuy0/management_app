@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/' => 'tags#new'
-    resources :tags, only: [:create, :edit, :update]
+    resources :tags, only: [:create, :destroy]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

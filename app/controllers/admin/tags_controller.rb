@@ -11,10 +11,10 @@ class Admin::TagsController < ApplicationController
     redirect_to request.referer
   end
 
-  def edit
-  end
-
-  def update
+  def destroy
+    tag = Tag.find(params[:id])
+    tag.destroy
+    redirect_to request.referer
   end
 
   private
