@@ -6,5 +6,5 @@ class User < ApplicationRecord
          :authentication_keys => [:name]
 
   has_many :items, dependent: :destroy
-  has_many :tags, dependent: :destroy
+
 end
