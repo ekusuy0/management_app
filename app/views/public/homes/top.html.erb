@@ -27,7 +27,9 @@
             <%= f.hidden_field :start_time %>
             <%= f.hidden_field :end_time %>
             <%= f.label :tag_id, "タグ選択" %><br>
-            <%= f.select :tag_id, options_from_collection_for_select(@tags, :id, :name), {include_blank: "選択"} %><br>
+            <% @tags.each do |tag| %>
+              <input type="button" value="<%= tag.name %>"></input>
+            <% end %><br>
             <%= f.submit "保存", id: "save" %>
           <% end %>
         </div>

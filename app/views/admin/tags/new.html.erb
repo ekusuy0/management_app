@@ -10,7 +10,9 @@
   <% if @tags.present? %>
     <div class="tag-box">
       <% @tags.each do |tag| %>
-        <%= tag.name %><%= link_to '削除', admin_tag_path(tag.id), method: :delete %>
+        <p>
+          <%= tag.name %><%= link_to '削除', admin_tag_path(tag.id), method: :delete %>
+        </p>
       <% end %>
     </div>
   <% end %>
