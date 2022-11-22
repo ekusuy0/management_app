@@ -27,8 +27,9 @@
             <%= f.hidden_field :start_time %>
             <%= f.hidden_field :end_time %>
             <%= f.label :tag_id, "タグ選択" %><br>
+            選択したタグ：<p id="clicked_tag"></p>
             <% @tags.each do |tag| %>
-              <input type="button" value="<%= tag.name %>"></input>
+              <input class="tag_list" type="button" value="<%= tag.name %>"></input>
             <% end %><br>
             <%= f.submit "保存", id: "save" %>
           <% end %>
@@ -39,5 +40,6 @@
     <input id="savebutton" type="button" value="保存" style="display: none"></input>
   <% end %>
 </div>
+
 
 <%= javascript_pack_tag 'script' %>
