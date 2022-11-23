@@ -31,9 +31,9 @@ if (localStorage.getItem('started_at') && !localStorage.getItem('stopped_at')) {
 
   // ここでページを読み込んだときの処理をしている
   window.addEventListener("load", function(){
-    startButton.disabled = true;
-    breakButton.disabled = false;
-    stopButton.disabled = false;
+    startButton.style.display = "none";
+    breakButton.style.display = "inline";
+    stopButton.style.display = "inline";
     // localStorageからstarted_atを取得してstartTimeに代入後、時間を表示する関数を呼び出す処理
     startTime = Number(localStorage.getItem('started_at'));
     displayTime();
@@ -61,9 +61,9 @@ if (localStorage.getItem('stopped_at') && localStorage.getItem('started_at') && 
 // localStorageにstopped_atとstarted_atが保存されているときの処理（再開ボタンを押した後にページを離れるかリロードしたとき）
 if (localStorage.getItem('stopped_at') && localStorage.getItem('count') && localStorage.getItem('check')) {
   window.addEventListener("load", function() {
-    startButton.disabled = true;
-    breakButton.disabled = false;
-    stopButton.disabled = false;
+    startButton.style.display = "none";
+    breakButton.style.display = "inline";
+    stopButton.style.display = "inline";
 
     startTime = Number(localStorage.getItem('started_at'));
     stopTime = Number(localStorage.getItem('stopped_at'));
@@ -130,9 +130,9 @@ let count = 0;
 
 // 開始ボタンが押されたときの処理
 startButton.addEventListener('mousedown', () => {
-  startButton.disabled = true;
-  breakButton.disabled = false;
-  stopButton.disabled = false;
+  startButton.style.display = "none";
+  breakButton.style.display = "inline";
+  stopButton.style.display = "inline";
 
   // itemモデルのstart_timeに代入
   // 開始ボタンを押した最初の一回だけ処理してほしいので前に定義したcountを使う
@@ -145,9 +145,9 @@ startButton.addEventListener('mousedown', () => {
           localStorage.clear();
           save.style.display = 'none';
         } else {
-          startButton.disabled = false;
-          breakButton.disabled = true;
-          stopButton.disabled = true;
+          startButton.style.display = "inline";
+          breakButton.style.display = "none";
+          stopButton.style.display = "none";
           console.log(a);
         }
       } else {
@@ -174,9 +174,9 @@ startButton.addEventListener('mousedown', () => {
 // 休憩ボタンを押したときの処理
 breakButton.addEventListener('mousedown', () => {
 
-  startButton.disabled = false;
-  breakButton.disabled = true;
-  stopButton.disabled = true;
+  startButton.style.display = "inline";
+  breakButton.style.display = "none";
+  stopButton.style.display = "none";
 
   // 休憩ボタンを押したとき開始ボタンを再開ボタンに変更する処理
   document.getElementById("start").value = "再開";
@@ -194,9 +194,9 @@ breakButton.addEventListener('mousedown', () => {
 
 // 終了ボタンを押したときの処理
 stopButton.addEventListener('mousedown', () => {
-  startButton.disabled = false;
-  breakButton.disabled = true;
-  stopButton.disabled = true;
+  startButton.style.display = "inline";
+  breakButton.style.display = "none";
+  stopButton.style.display = "none";
 
   elapsed_time = new Date(Date.now() - startTime + stopTime);
   localStorage.setItem('elapsed_time', elapsed_time);
