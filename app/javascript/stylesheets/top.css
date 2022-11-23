@@ -60,3 +60,7 @@
   height: 100%;
 }
 
+input[type=radio] {
+  display: none; /* ラジオボタンを非表示にする */
+}
+

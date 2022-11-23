@@ -270,10 +270,3 @@ if (saveButton) {
     localStorage.clear();
   });
 }
-
-const tag = document.getElementsByClassName("tag_list");
-
-
-tag.addEventListener('click', () => {
-  console.log("あ");
-})
