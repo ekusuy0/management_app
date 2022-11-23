@@ -64,3 +64,10 @@ input[type=radio] {
   display: none; /* ラジオボタンを非表示にする */
 }
 
+.timer-button {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  font-size: 30px;
+}
+
