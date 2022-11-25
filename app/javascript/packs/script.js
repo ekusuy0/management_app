@@ -6,7 +6,6 @@ const breakButton = document.getElementById('break');
 const stopButton = document.getElementById('stop');
 const saveButton = document.getElementById('save');
 const result = document.getElementById("result");
-const h1 = document.createElement('h1');
 const close = document.getElementById("close-button");
 const container = document.getElementById('modal-container');
 const save = document.getElementById('savebutton');
@@ -87,8 +86,7 @@ if (localStorage.getItem('elapsed_time') && localStorage.getItem('end_time') && 
 // 結果がリロードしても消えないよう
 if (localStorage.getItem('result')) {
   window.addEventListener("load", function() {
-    h1.textContent = localStorage.getItem('result');
-    result.appendChild(h1);
+    result.innerHTML = localStorage.getItem('result');
     save.style.display = 'inline';
   })
 } else {
@@ -211,8 +209,7 @@ stopButton.addEventListener('mousedown', () => {
 
   const text = h + '時間' + m + '分' + s + '秒';
   localStorage.setItem('result', text);
-  h1.textContent = text;
-  result.appendChild(h1);
+  result.innerHTML = text;
 
   // form_withのf.hidden_fieldのvalueに経過時間と終了時間を追加する処理
   if (document.getElementById("item_elapsed_time")) {

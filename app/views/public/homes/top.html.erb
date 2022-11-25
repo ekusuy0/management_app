@@ -1,18 +1,11 @@
 <div class="container text-center">
-  <h1>ストップウォッチ</h1>
+  <div id="title">ストップウォッチ</div>
 
-  <% if user_signed_in? %>
-    <h3>Userネーム：<%= @user.name %></h3>
-  <% end %>
-
-  <div id="time">00:00:00.000</div>
+  <div id="time" class="mb-3">00:00:00.000</div>
 
   <input id="start" type="button" value="開始" style="display: inline" class="btn btn-outline-primary timer-button mx-3"></input>
   <input id="break" type="button" value="休憩" style="display: none" class="btn btn-outline-primary timer-button mx-3"></input>
-  <input id="stop" type="button" value="終了" style="display: none" class="btn btn-outline-primary timer-button mx-3"></input>
-
-
-  <div id="result"></div>
+  <input id="stop" type="button" value="終了" style="display: none" class="btn btn-outline-primary timer-button mx-3"></input><br>
 
 
   <% if user_signed_in? %>
@@ -20,9 +13,10 @@
       <div class="modal-body">
         <div id="close-button">✖</div>
         <div class="modal-content text-center">
+          <div id="result"></div>
           <%= form_with model: @item, url: items_path, method: :post do |f| %>
             <%= f.label "タイトル" %><br>
-            <%= f.text_field :name %><br>
+            <%= f.text_field :name, class: "mb-3" %><br>
             <%= f.hidden_field :elapsed_time %>
             <%= f.hidden_field :start_time %>
             <%= f.hidden_field :end_time %>
@@ -31,13 +25,13 @@
               <%= f.radio_button :tag_id, tag.id %>
               <%= f.label :tag_id, "#{ tag.name }", :value => "#{ tag.id }", class: "btn btn-outline-secondary" %>
             <% end %><br>
-            <%= f.submit "保存", id: "save" %>
+            <%= f.submit "保存", id: "save", class: "btn btn-outline-primary mt-3" %>
           <% end %>
         </div>
       </div>
     </div>
 
-    <input id="savebutton" type="button" value="保存" style="display: none"></input>
+    <input id="savebutton" type="button" value="結果を保存する" style="display: none" class="btn btn-outline-primary mt-5"></input>
   <% end %>
 </div>
 

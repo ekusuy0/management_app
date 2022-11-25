@@ -6,8 +6,16 @@
   box-sizing: border-box;
 }
 
+#title {
+  font-size: 4vw;
+}
+
 #time {
-  font-size: 200px;
+  font-size: 13vw;
+}
+
+#result {
+  font-size: 6vw;
 }
 
 #modal-container {
