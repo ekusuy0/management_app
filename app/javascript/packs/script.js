@@ -136,7 +136,7 @@ startButton.addEventListener('mousedown', () => {
   // 開始ボタンを押した最初の一回だけ処理してほしいので前に定義したcountを使う
   if (localStorage.getItem('count') == null) {
     const start_time = new Date(Date.now());
-    if (h1.childNodes.length != 0){
+    if (time.childNodes.length != 0){
       if (document.getElementById("item_start_time")) {
         var repty = confirm('保存せずに開始を押すと前回の結果が消えてしまいます。よろしいですか？');
         if (repty) {
@@ -151,7 +151,6 @@ startButton.addEventListener('mousedown', () => {
       } else {
         localStorage.clear();
       }
-      result.removeChild(h1);
     }
     localStorage.setItem('start_time', start_time);
     if (document.getElementById("item_start_time")) {
