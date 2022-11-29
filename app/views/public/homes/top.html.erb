@@ -15,16 +15,18 @@
         <div class="modal-content text-center">
           <div id="result"></div>
           <%= form_with model: @item, url: items_path, method: :post do |f| %>
-            <%= f.label "タイトル" %><br>
-            <%= f.text_field :name, class: "mb-3" %><br>
+            <%= f.label "タイトル入力欄", class: "label" %><br>
+            <%= f.text_field :name, class: "col-lg-5 form-control-lg mb-3" %><br>
             <%= f.hidden_field :elapsed_time %>
             <%= f.hidden_field :start_time %>
             <%= f.hidden_field :end_time %>
-            <%= f.label :tag_id, "タグ選択" %><br>
-            <% @tags.each do |tag| %>
-              <%= f.radio_button :tag_id, tag.id %>
-              <%= f.label :tag_id, "#{ tag.name }", :value => "#{ tag.id }", class: "btn btn-outline-secondary" %>
-            <% end %><br>
+            <%= f.label :tag_id, "タグ選択", class: "label" %><br>
+            <div class="col-lg-5 mx-auto">
+              <% @tags.each do |tag| %>
+                <%= f.radio_button :tag_id, tag.id %>
+                <%= f.label :tag_id, "#{ tag.name }", :value => "#{ tag.id }", class: "btn btn-outline-secondary tag-button" %>
+              <% end %><br>
+            </div>
             <%= f.submit "保存", id: "save", class: "btn btn-outline-primary mt-3" %>
           <% end %>
         </div>
