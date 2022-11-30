@@ -8,32 +8,44 @@
   <input id="stop" type="button" value="終了" style="display: none" class="btn btn-outline-primary timer-button mx-3"></input><br>
 
 
-  <% if user_signed_in? %>
-    <div id="modal-container">
-      <div class="modal-body">
-        <div id="close-button">✖</div>
-        <div class="modal-content text-center">
-          <div id="result"></div>
-          <%= form_with model: @item, url: items_path, method: :post do |f| %>
-            <%= f.label "タイトル入力欄", class: "label" %><br>
-            <%= f.text_field :name, class: "col-lg-5 form-control-lg mb-3" %><br>
-            <%= f.hidden_field :elapsed_time %>
-            <%= f.hidden_field :start_time %>
-            <%= f.hidden_field :end_time %>
-            <%= f.label :tag_id, "タグ選択", class: "label" %><br>
-            <div class="col-lg-5 mx-auto">
-              <% @tags.each do |tag| %>
-                <%= f.radio_button :tag_id, tag.id %>
-                <%= f.label :tag_id, "#{ tag.name }", :value => "#{ tag.id }", class: "btn btn-outline-secondary tag-button" %>
-              <% end %><br>
-            </div>
+  <div id="modal-container">
+    <div class="modal-body">
+      <div id="close-button">✖</div>
+      <div class="modal-content text-center">
+        <div id="result"></div>
+        <%= form_with model: @item, url: items_path, method: :post do |f| %>
+          <%= f.label "タイトル入力欄", class: "label" %><br>
+          <%= f.text_field :name, class: "col-lg-5 form-control-lg mb-3" %><br>
+          <%= f.hidden_field :elapsed_time %>
+          <%= f.hidden_field :start_time %>
+          <%= f.hidden_field :end_time %>
+          <%= f.label :tag_id, "タグ選択", class: "label" %><br>
+          <div class="col-lg-5 mx-auto">
+            <% @tags.each do |tag| %>
+              <%= f.radio_button :tag_id, tag.id %>
+              <%= f.label :tag_id, "#{ tag.name }", :value => "#{ tag.id }", class: "btn btn-outline-secondary" %>
+            <% end %><br>
+          </div>
+          <% if user_signed_in? %>
             <%= f.submit "保存", id: "save", class: "btn btn-outline-primary mt-3" %>
+          <% else %>
+            <div class="pt-3">
+              <%= link_to "登録すると情報を保存することができます", new_user_registration_path %>
+            </div>
           <% end %>
-        </div>
+        <% end %>
       </div>
     </div>
+  </div>
 
-    <input id="savebutton" type="button" value="結果を保存する" style="display: none" class="btn btn-outline-primary mt-5"></input>
+
+  <% if user_signed_in? %>
+    <input id="savebutton" type="button" value="結果を保存する" style="display: none" class="btn btn-outline-primary btn-lg mt-5"></input>
+  <% else %>
+    <input id="result-display" type="button" value="結果を確認する" style="display: none" class="btn btn-outline-primary btn-lg mt-5"></input>
+    <div class="pt-5">
+      <%= link_to "登録すると情報を保存することができます", new_user_registration_path %>
+    </div>
   <% end %>
 </div>
 

@@ -9,6 +9,7 @@ const result = document.getElementById("result");
 const close = document.getElementById("close-button");
 const container = document.getElementById('modal-container');
 const save = document.getElementById('savebutton');
+const result_display = document.getElementById('result-display');
 var error = "";
 
 
@@ -87,10 +88,14 @@ if (localStorage.getItem('elapsed_time') && localStorage.getItem('end_time') && 
 if (localStorage.getItem('result')) {
   window.addEventListener("load", function() {
     result.innerHTML = localStorage.getItem('result');
-    save.style.display = 'inline';
+    if (save) {
+      save.style.display = 'inline';
+    }
   })
 } else {
-  save.style.display = 'none';
+  if (save) {
+    save.style.display = 'none';
+  }
 }
 
 //　時間を表示する関数
@@ -141,7 +146,9 @@ startButton.addEventListener('mousedown', () => {
         var repty = confirm('保存せずに開始を押すと前回の結果が消えてしまいます。よろしいですか？');
         if (repty) {
           localStorage.clear();
-          save.style.display = 'none';
+          if (save) {
+            save.style.display = 'none';
+          }
         } else {
           startButton.style.display = "inline";
           breakButton.style.display = "none";
@@ -253,13 +260,26 @@ stopButton.addEventListener('mousedown', () => {
 close.addEventListener('mousedown', () => {
   container.classList.remove("active");
   if (localStorage.getItem('result')) {
-    save.style.display = 'inline';
+    if (save) {
+      save.style.display = 'inline';
+    }
+    if (result_display) {
+      result_display.style.display = "inline";
+    }
   }
 });
 
-save.addEventListener('click', () => {
-  container.classList.add("active");
-})
+if (save) {
+  save.addEventListener('click', () => {
+    container.classList.add("active");
+  })
+}
+
+if (result_display) {
+  result_display.addEventListener('click', () => {
+    container.classList.add("active");
+  })
+}
 
 if (saveButton) {
   saveButton.addEventListener('mousedown', () => {
