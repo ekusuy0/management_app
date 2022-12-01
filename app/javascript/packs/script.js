@@ -281,8 +281,8 @@ if (result_display) {
   })
 }
 
-if (saveButton) {
-  saveButton.addEventListener('mousedown', () => {
-    localStorage.clear();
-  });
-}
+// if (saveButton) {
+//   saveButton.addEventListener('mousedown', () => {
+//     localStorage.clear();
+//   });
+// }
